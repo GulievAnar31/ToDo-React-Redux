@@ -10,10 +10,9 @@ const appReducer = (state = initialState, action) => {
             }
         }
         case 'DELETE_ITEM': {
-            const newItems = [Object.keys(state.items).filter((e) => e != action.id)]
-            console.log(newItems[0]);
+           let items = state.items.filter((id, elem) => elem !== action.id);
             return {
-                
+                items
             }
         }
         default:

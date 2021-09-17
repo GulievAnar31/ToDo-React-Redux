@@ -5,16 +5,24 @@ import { addItem, deleteItem } from '../store/action';
 
 function Todo() {
  const dispatch = useDispatch();
+ const [deletedItem, setDeletedItem] = useState();
+
+ const onDeleteClick = (index) => {
+    setDeletedItem(index);
+    dispatch(deleteItem(index))
+}
+
 
  const items = useSelector(({app}) => app.items);
 
-let elems = items.map((item, index) => {
-    return <li className="list-group-item" key = {index}>{item} <button onClick = {() => dispatch(deleteItem(index))}>X</button></li>
+let elems = items && items.map((item, index) => {
+    return <li className="list-group-item"  key = {index} onClick = {() => onDeleteClick(index)}>{item}</li>
 });
 
 const [state, setstate] = useState();
 
 const ref = useRef('')
+
 
 const onButtonClick = () => {
     setstate(ref.current.value);
@@ -25,7 +33,7 @@ const onButtonClick = () => {
 
     
     return (
-        <div>
+        <div className = 'mainBlock'>
         <div className = 'todo'>
             <ul className="list-group">
                 {elems}
